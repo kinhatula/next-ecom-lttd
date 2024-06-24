@@ -3,8 +3,12 @@ import { NextPage } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 
+// ** Hooks
+
+import { useAuth } from 'src/hooks/useAuth'
+
 // ** React
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 
 // ** Mui
 import {
@@ -43,9 +47,11 @@ type TDefaultValue = {
 }
 
 const LoginPage: NextPage<TProps> = () => {
-  // State
+  // ** State
   const [showPassword, setShowPassword] = useState(false)
   const [isRemember, setIsRemember] = useState(true)
+  // ** Hook
+  const { login } = useAuth()
 
   // ** theme
   const theme = useTheme()
@@ -74,7 +80,10 @@ const LoginPage: NextPage<TProps> = () => {
   })
 
   const onSubmit = (data: { email: string; password: string }) => {
-    console.log('data', { data, errors })
+    if (!Object.keys(errors)?.length) {
+      login({ ...data, rememberMe: isRemember })
+      console.log('data', { data, errors })
+    }
   }
 
   return (
@@ -221,7 +230,7 @@ const LoginPage: NextPage<TProps> = () => {
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
                   role='img'
-                  font-size='1.375rem'
+                  fontSize='1.375rem'
                   className='iconify iconify--mdi'
                   width='1em'
                   height='1em'
