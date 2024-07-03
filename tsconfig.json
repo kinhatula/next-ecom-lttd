@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es6",
+    "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
@@ -17,6 +17,6 @@
       "src/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/views/layouts/UserLayout.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/views/layouts/UserLayout.tss"],
   "exclude": ["node_modules"]
 }

@@ -1,4 +1,4 @@
-// ** React Imports
+// ** React
 import React from 'react'
 
 // ** Next
@@ -14,30 +14,33 @@ import Divider from '@mui/material/Divider'
 import IconButton from '@mui/material/IconButton'
 import Tooltip from '@mui/material/Tooltip'
 
-// ** components
-import IconifyIcon from '../Icon'
+// ** Components
+import IconifyIcon from 'src/components/Icon'
 
-// ** Hook
+// ** Hooks
 import { useAuth } from 'src/hooks/useAuth'
 
 type TProps = {}
 
 const UserDropdown = (props: TProps) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
-  const { user, logout } = useAuth()
+
+  const { user,logout } = useAuth()
 
   const open = Boolean(anchorEl)
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget)
   }
+
   const handleClose = () => {
     setAnchorEl(null)
   }
+
   return (
     <React.Fragment>
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-        <Tooltip title='Account '>
+        <Tooltip title='Account'>
           <IconButton
             onClick={handleClick}
             size='small'
@@ -48,9 +51,16 @@ const UserDropdown = (props: TProps) => {
           >
             <Avatar sx={{ width: 32, height: 32 }}>
               {user?.avatar ? (
-                <Image src={user?.avatar || ''} alt='avatar' style={{ height: 'auto', width: 'auto' }} />
+                <Image
+                  src={user?.avatar || ''}
+                  alt='avatar'
+                  style={{
+                    height: 'auto',
+                    width: 'auto'
+                  }}
+                />
               ) : (
-                <IconifyIcon icon='mage:user' />
+                <IconifyIcon icon='ph:user-thin' />
               )}
             </Avatar>
           </IconButton>

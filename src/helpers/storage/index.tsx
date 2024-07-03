@@ -7,6 +7,7 @@ export const setLocalUserData = (userData: string, accessToken: string, refreshT
     refreshToken: window.localStorage.setItem(REFRESH_TOKEN, refreshToken)
   }
 }
+
 export const getLocalUserData = () => {
   return {
     userData: window.localStorage.getItem(USER_DATA),

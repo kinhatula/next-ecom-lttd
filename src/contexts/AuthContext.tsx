@@ -14,10 +14,10 @@ import authConfig from 'src/configs/auth'
 import { AuthValuesType, LoginParams, ErrCallbackType, UserDataType } from './types'
 
 // ** services
-import { loginAuth, logoutAuth } from 'src/services/auth'
-import { clearLocalUserData, setLocalUserData } from 'src/helpers/storege'
+import { loginAuth } from 'src/services/auth'
 import { CONFIG_API } from 'src/configs/api'
-import instanceAxios from 'src/helpers/axios'
+import { clearLocalUserData, setLocalUserData } from 'src/helpers/storage'
+import { logoutAuth } from '../services/auth'
 
 // ** Defaults
 const defaultProvider: AuthValuesType = {
@@ -46,19 +46,24 @@ const AuthProvider = ({ children }: Props) => {
   useEffect(() => {
     const initAuth = async (): Promise<void> => {
       const storedToken = window.localStorage.getItem(authConfig.storageTokenKeyName)
+   
       if (storedToken) {
         setLoading(true)
-        await instanceAxios
-          .get(CONFIG_API.AUTH.AUTH_ME)
+        await axios
+          .get(CONFIG_API.AUTH.AUTH_ME, {
+            headers: {
+              Authorization: `Bearer ${storedToken}`
+            }
+          })
           .then(async response => {
             setLoading(false)
-            setUser({ ...response.data.userData })
+            setUser({ ...response.data.data })
           })
           .catch(() => {
             clearLocalUserData()
             setUser(null)
             setLoading(false)
-            if (authConfig.onTokenExpiration === 'logout' && !router.pathname.includes('login')) {
+            if (!router.pathname.includes('login')) {
               router.replace('/login')
             }
           })
@@ -74,11 +79,14 @@ const AuthProvider = ({ children }: Props) => {
     loginAuth({ email: params.email, password: params.password })
       .then(async response => {
         params.rememberMe
-          ? setLocalUserData(JSON.stringify(response.data.user), response.data.accessToken, response.data.refresh_Token)
+          ? setLocalUserData(
+              JSON.stringify(response.data.user),
+              response.data.access_token,
+              response.data.refresh_token
+            )
           : null
         const returnUrl = router.query.returnUrl
         setUser({ ...response.data.user })
-
         const redirectURL = returnUrl && returnUrl !== '/' ? returnUrl : '/'
 
         router.replace(redirectURL as string)

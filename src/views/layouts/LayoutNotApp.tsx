@@ -1,6 +1,7 @@
 // ** React
 import * as React from 'react'
-// ** Next
+
+// ** next
 import { NextPage } from 'next'
 
 // ** Mui
@@ -9,9 +10,9 @@ import Box from '@mui/material/Box'
 import Toolbar from '@mui/material/Toolbar'
 import Container from '@mui/material/Container'
 
-// ** Views
-import HorizontalLayout from './HorizontalLayout'
-import VerticalLayout from './VerticalLayout'
+// ** views
+import HorizontalLayout from 'src/views/layouts/HorizontalLayout'
+import VerticalLayout from 'src/views/layouts/VerticalLayout'
 
 type TProps = {
   children: React.ReactNode
@@ -41,4 +42,5 @@ const LayoutNotApp: NextPage<TProps> = ({ children }) => {
     </Box>
   )
 }
+
 export default LayoutNotApp

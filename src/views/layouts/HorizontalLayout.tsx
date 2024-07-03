@@ -50,6 +50,7 @@ const AppBar = styled(MuiAppBar, {
 }))
 
 const HorizontalLayout: NextPage<TProps> = ({ open, toggleDrawer, isHideMenu }) => {
+
   return (
     <AppBar position='absolute' open={open}>
       <Toolbar

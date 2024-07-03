@@ -43,7 +43,7 @@ type TDefaultValue = {
   confirmPassword: string
 }
 
-const RegisterPage: NextPage<TProps> = () => {
+const LoginPage: NextPage<TProps> = () => {
   // State
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
@@ -240,7 +240,7 @@ const RegisterPage: NextPage<TProps> = () => {
               <Link
                 href='/login'
                 style={{
-                  color: theme.palette.mode === 'light' ? theme.palette.common.black : theme.palette.common.white
+                  color: theme.palette.primary.main
                 }}
               >
                 {'Login'}
@@ -288,4 +288,4 @@ const RegisterPage: NextPage<TProps> = () => {
   )
 }
 
-export default RegisterPage
+export default LoginPage
